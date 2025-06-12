@@ -1,5 +1,6 @@
 package com.example.atm_app.service;
 
+import com.example.atm_app.dto.RegisterRequest;
 import com.example.atm_app.entity.Account;
 import com.example.atm_app.entity.Beneficiary;
 import com.example.atm_app.entity.BankTransaction;
@@ -30,6 +31,16 @@ public class AccountService {
     // 💰 Get Balance by Account ID
     public Optional<Float> getBalance(int accountId) {
         return accountRepo.findById(accountId).map(Account::getBalance);
+    }
+
+    public Account register(RegisterRequest request) {
+        Account account = Account.builder()
+                .name(request.getName())
+                .pin(request.getPin())
+                .balance(request.getInitialBalance())
+                .build();
+
+        return accountRepo.save(account);
     }
 
     // 💵 Deposit Money

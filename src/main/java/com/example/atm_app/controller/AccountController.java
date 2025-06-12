@@ -1,6 +1,7 @@
 package com.example.atm_app.controller;
 
 import com.example.atm_app.dto.LoginRequest;
+import com.example.atm_app.dto.RegisterRequest;
 import com.example.atm_app.entity.Account;
 import com.example.atm_app.entity.BankTransaction;
 import com.example.atm_app.service.AccountService;
@@ -19,7 +20,15 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    @PostMapping("/register")
+    public ResponseEntity<Account> register(@RequestBody RegisterRequest registerRequest) {
+        Account created = accountService.register(registerRequest);
+        return ResponseEntity.ok(created);
+    }
+
+
     // 🔐 Login using PIN
+    @PostMapping("/login")
     public ResponseEntity<Account> login(@RequestBody LoginRequest loginRequest) {
         Optional<Account> account = accountService.login(loginRequest.getPin());
         return account.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(401).build());
