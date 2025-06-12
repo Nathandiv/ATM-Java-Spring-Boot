@@ -1,9 +1,6 @@
 package com.example.atm_app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,13 +13,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Account {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 36, updatable = false, nullable = false)
     private Integer id;
 
+    @Column(nullable = false)
     private String name;
-    private int pin;
-    private float balance;
 
+    @Column(nullable = false)
+    private int pin;
+
+    @Column(nullable = false)
+    private float balance;
 }
