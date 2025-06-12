@@ -1,5 +1,6 @@
 package com.example.atm_app.controller;
 
+import com.example.atm_app.dto.AddBeneficiaryRequest;
 import com.example.atm_app.dto.LoginRequest;
 import com.example.atm_app.dto.RegisterRequest;
 import com.example.atm_app.entity.Account;
@@ -55,6 +56,13 @@ public class AccountController {
             @RequestParam int accountId,
             @RequestParam float amount) {
         return ResponseEntity.ok(accountService.withdraw(accountId, amount));
+    }
+
+    // add beneficiaries
+    @PostMapping("/beneficiaries")
+    public ResponseEntity<String> addBeneficiary(@RequestBody AddBeneficiaryRequest request) {
+        String response = accountService.addBeneficiary(request.getSenderId(), request.getRecipientId());
+        return ResponseEntity.ok(response);
     }
 
     // 💸 Transfer funds

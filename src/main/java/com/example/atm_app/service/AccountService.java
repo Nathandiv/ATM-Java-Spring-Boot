@@ -43,6 +43,24 @@ public class AccountService {
         return accountRepo.save(account);
     }
 
+
+    public String addBeneficiary(int senderId, int recipientId) {
+        boolean exists = beneficiaryRepo.findBySenderId(senderId).stream()
+                .anyMatch(b -> b.getRecipientId().equals(recipientId));
+
+        if (exists) {
+            return "Beneficiary already exists.";
+        }
+
+        beneficiaryRepo.save(Beneficiary.builder()
+                .senderId(senderId)
+                .recipientId(recipientId)
+                .build());
+
+        return "Beneficiary added successfully.";
+    }
+
+
     // 💵 Deposit Money
     @Transactional
     public String deposit(int accountId, float amount) {
