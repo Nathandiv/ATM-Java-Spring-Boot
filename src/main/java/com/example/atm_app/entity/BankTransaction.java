@@ -6,33 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Transaction {
-
+public class BankTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
     private Integer id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "account_id", nullable = false)
+    @ManyToOne
     private Account account;
 
-    @Column(nullable = false, length = 100)
     private String type;
-
-    @Column(nullable = false)
     private float amount;
-
-    @Column(nullable = false)
     private float balanceAfter;
-
-    @Column(nullable = false)
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
 }
