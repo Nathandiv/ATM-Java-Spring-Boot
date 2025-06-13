@@ -3,6 +3,7 @@ package com.example.atm_app.controller;
 import com.example.atm_app.dto.AddBeneficiaryRequest;
 import com.example.atm_app.dto.LoginRequest;
 import com.example.atm_app.dto.RegisterRequest;
+import com.example.atm_app.dto.WithdrawRequest;
 import com.example.atm_app.entity.Account;
 import com.example.atm_app.entity.BankTransaction;
 import com.example.atm_app.service.AccountService;
@@ -25,6 +26,11 @@ public class AccountController {
     public ResponseEntity<Account> register(@RequestBody RegisterRequest registerRequest) {
         Account created = accountService.register(registerRequest);
         return ResponseEntity.ok(created);
+    }
+    // get all accounts
+    @GetMapping("/accounts")
+    public ResponseEntity<List<Account>> getAllAccounts() {
+        return ResponseEntity.ok(accountService.getAllAccounts());
     }
 
 
@@ -52,10 +58,8 @@ public class AccountController {
 
     // 💳 Withdraw funds
     @PostMapping("/withdraw")
-    public ResponseEntity<String> withdraw(
-            @RequestParam int accountId,
-            @RequestParam float amount) {
-        return ResponseEntity.ok(accountService.withdraw(accountId, amount));
+    public ResponseEntity<String> withdraw(@RequestBody WithdrawRequest request) {
+        return ResponseEntity.ok(accountService.withdraw(request.getAccountId(), request.getAmount()));
     }
 
     // add beneficiaries

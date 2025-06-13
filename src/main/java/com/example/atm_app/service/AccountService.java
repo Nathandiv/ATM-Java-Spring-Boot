@@ -43,6 +43,10 @@ public class AccountService {
         return accountRepo.save(account);
     }
 
+    public List<Account> getAllAccounts() {
+        return accountRepo.findAll();
+    }
+
 
     public String addBeneficiary(int senderId, int recipientId) {
         boolean exists = beneficiaryRepo.findBySenderId(senderId).stream()
