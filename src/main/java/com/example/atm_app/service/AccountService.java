@@ -30,7 +30,13 @@ public class AccountService {
 
     // 💰 Get Balance by Account ID
     public Optional<Float> getBalance(int accountId) {
-        return accountRepo.findById(accountId).map(Account::getBalance);
+        Optional<Account> account = accountRepo.findById(accountId);
+        if (account.isPresent()) {
+            System.out.println("Account found: " + account.get().getName() + " | Balance: " + account.get().getBalance());
+        } else {
+            System.out.println("No account found with ID: " + accountId);
+        }
+        return account.map(Account::getBalance);
     }
 
     public Account register(RegisterRequest request) {
