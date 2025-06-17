@@ -70,6 +70,10 @@ public class AccountService {
         return "Beneficiary added successfully.";
     }
 
+    public List<Beneficiary> getAllBeneficiaries() {
+        return beneficiaryRepo.findAll();
+    }
+
 
     // 💵 Deposit Money
     @Transactional

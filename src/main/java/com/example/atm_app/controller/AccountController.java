@@ -6,6 +6,7 @@ import com.example.atm_app.dto.RegisterRequest;
 import com.example.atm_app.dto.WithdrawRequest;
 import com.example.atm_app.entity.Account;
 import com.example.atm_app.entity.BankTransaction;
+import com.example.atm_app.entity.Beneficiary;
 import com.example.atm_app.service.AccountService;
 import jakarta.transaction.Transaction;
 import lombok.RequiredArgsConstructor;
@@ -67,6 +68,12 @@ public class AccountController {
     public ResponseEntity<String> addBeneficiary(@RequestBody AddBeneficiaryRequest request) {
         String response = accountService.addBeneficiary(request.getSenderId(), request.getRecipientId());
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/beneficiaries")
+    public ResponseEntity<List<Beneficiary>> getAllBeneficiaries() {
+        List<Beneficiary> beneficiaries = accountService.getAllBeneficiaries();
+        return ResponseEntity.ok(beneficiaries);
     }
 
     // 💸 Transfer funds
